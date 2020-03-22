@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Task Manager</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <!-- font awesome -->
+  <script src="https://kit.fontawesome.com/a8648471e7.js" crossorigin="anonymous"></script>
+  <!-- stylesheet -->
+  <link rel="stylesheet" href="/static/css/reset.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+</head>
+
+<body onload='loadData()'>
+  <div class="background">
+    <img src="/static/assets/rocket.png" draggable='false'>
+  </div>
+  <header>
+    <div class='menu-bar'>
+      <div class='menu-open'>
+        <i class="fas fa-ellipsis-v"></i>
+      </div>
+      <div class='search-bar'>
+        <i class='fas fa-search'></i>
+        <input type="text" placeholder="" class='search-input'>
+        <button class='filter-dropdown'><span>Filter</span> <i class='fas fa-chevron-down'></i></button>
+      </div>
+      <div class="logo">
+        <i class='fas fa-plus'></i>
+      </div>
+    </div>
+  </header>
+  <!-- add a task -->
+  <div class='new-task'>
+    <div class="select-category">
+      <select>
+      </select>
+    </div>
+    <form class="form">
+      <div class="form-box">
+        <i class='fas fa-box'></i>
+        <input type="text" class='category-input' placeholder="New category">
+      </div>
+      <div class="form-box">
+        <i class='fas fa-edit'></i>
+        <input type="text" placeholder="New task" class='task-input' />
+      </div>
+      <button style='height: 0px; width: 0px; visibility: hidden;'>Add</button>
+    </form>
+    <div class='error'>
+      <i class='fas fa-exclamation-triangle'></i>
+      <span class='error-message'></span>
+    </div>
+  </div>
+  <!-- import/export all data -->
+  <div class='menu'>
+    <!-- <button class='import-data' data-button='import'> -->
+    <input id="file-select" data-button='import' type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+    <label class='import-data' for="file-select">
+      <i class='fas fa-arrow-up'></i>
+      <p>Import</p>
+    </label>
+    </button>
+    <button class='export-data' data-button='export'>
+      <i class='fas fa-arrow-down'></i>
+      <p>Export</p>
+    </button>
+    <button class='clear-data'>
+      <i class='fas fa-times'></i>
+      <p>Clear data</p>
+    </button>
+    <button class='view-archived'>
+      <i class='fas fa-archive'></i>
+      <p>View archive</p>
+    </button>
+  </div>
+  <!-- filter options -->
+  <div class="filter-options">
+    <button class='filter-button' data-filter-state='new' value='new'>New</button>
+    <button class='filter-button' data-filter-state='resolve' value='resolve'>Resolve</button>
+    <button class='filter-button' data-filter-state='test' value='test'>Test</button>
+    <button class='filter-button' data-filter-state='done' value='done'>Done</button>
+  </div>
+  <main>
+    <!-- tasks -->
+    <section class='added-tasks'>
+      <ul class='archived-tasks'></ul>
+      <ul class='current-tasks'>
+      </ul>
+    </section>
+  </main>
+  <!-- javascript -->
+  <script src="/static/js/global.js"></script>
+  <script src="/static/js/menu.js"></script>
+  <script src="/static/js/drag-and-drop.js"></script>
+  <script src="/static/js/task.js"></script>
+  <script src="/static/js/category.js"></script>
+  <script src="/static/js/filter.js"></script>
+  <script src="/static/js/event-listeners.js"></script>
+</body>
+
+</html>

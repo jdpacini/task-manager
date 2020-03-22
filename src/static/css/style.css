@@ -1,0 +1,758 @@
+/**
+ * ***************************
+ *
+ * Global **********************************
+ */
+
+:root {
+  --primary    : rgb(75, 129, 233);
+  --new        : rgb(208, 61, 61);
+  --resolve    : rgb(237, 116, 49);
+  --test       : rgb(205, 192, 71);
+  --done       : rgb(45, 190, 116);
+  --gray100    : #f0f3f5;
+  --gray200    : #43444d;
+  --gray300    : #303139;
+  --gray400    : #272830;
+  --gray500    : #1e1f28;
+  --white100   : rgba(255, 255, 255, 0.87);
+  --white200   : rgba(255, 255, 255, 0.60);
+  --white300   : rgba(255, 255, 255, 0.38);
+  --white400   : rgba(255, 255, 255, 0.15);
+  --padding-sm : 8px;
+  --margin-sm  : 8px;
+  --box-shadow : 0 0 10px 3px rgba(19, 19, 19, 0.2);
+  --border-sm  : 6px;
+  --border-lg  : 30px;
+  --font-sm    : 13px;
+  --font-lg    : 16px;
+  --short      : 0.3s;
+  --long       : 0.6s;
+  --cubic      : cubic-bezier(0.45, -0.71, 0.24, 1.39);
+}
+
+body {
+  background  : var(--gray500);
+  font-family : 'Inter',
+                sans-serif;
+  font-weight : 400;
+}
+
+button>* {
+  pointer-events : none;
+}
+
+[draggable] {
+  -moz-user-select : none;
+}
+
+main {
+  margin-top : 120px;
+}
+
+input[type='text'],
+select {
+  border        : 0;
+  border-radius : var(--border-lg);
+  font-family   : 'Inter',
+                  arial;
+  font-size     : var(--font-sm);
+  font-weight   : 400;
+  padding       : 6px 8px;
+}
+
+input[type='text']::placeholder {
+  color : var(--gray400);
+}
+
+input[type='text']:focus {
+  outline : none;
+}
+
+button,
+label {
+  cursor    : pointer;
+  font-size : var(--font-sm);
+  outline   : none;
+}
+
+.background {
+  align-items     : center;
+  display         : flex;
+  justify-content : center;
+}
+
+.background img {
+  opacity  : 0.075;
+  position : fixed;
+  top      : 30%;
+  width    : 400px;
+  z-index  : -1;
+  transition: 2s;
+  transform: translate3d(0,0,0);
+}
+
+.background img.spin {
+  animation-name: spin;
+  animation-duration: 3s;
+}
+.background img.shoot {
+  animation-name: shoot;
+  animation-duration: 3s;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  } to {
+      transform: rotate(1080deg);
+  }
+}
+@keyframes shoot {
+  from {
+    transform: translate3d(0,0,0);
+  } to {
+      transform: translate3d(2000px,-2000px,0);
+  }
+}
+/* *************************** Local **************************** */
+
+header {
+  background  : var(--gray500);
+  line-height : 1.5;
+  padding     : 20px 20px 10px 20px;
+  position    : fixed;
+  top         : 0;
+  width       : calc(100% - 40px);
+  z-index     : 100;
+}
+
+header .menu-bar {
+  align-items     : center;
+  display         : flex;
+  justify-content : flex-start;
+}
+
+header .menu-bar .logo {
+  cursor: pointer;
+}
+
+header .menu-bar .logo i {
+  align-items     : center;
+  background      : var(--primary);
+  border-radius   : 50%;
+  color           : #fff;
+  cursor          : pointer;
+  display         : flex;
+  font-size       : 20px;
+  height          : 36px;
+  justify-content : center;
+  padding         : 8px;
+  transition      : var(--short);
+  width           : 36px;
+  z-index         : 200;
+  pointer-events: none;
+}
+
+header .menu-bar .logo.close i {
+  opacity   : 1;
+  transform : rotate(45deg);
+}
+
+header .menu-bar .search-bar {
+  align-items     : center;
+  display         : flex;
+  justify-content : center;
+  margin          : 0 auto;
+  max-width       : 400px;
+}
+
+header .menu-bar .search-bar i.fa-search {
+  color     : var(--white300);
+  font-size : var(--font-sm);
+  left      : 30px;
+  position  : relative;
+}
+
+header .menu-bar .search-bar .search-input {
+  background                 : var(--gray400);
+  border-bottom-left-radius  : var(--border-lg);
+  border-bottom-right-radius : 0;
+  border-top-left-radius     : var(--border-lg);
+  border-top-right-radius    : 0;
+  color                      : var(--primary);
+  max-width                  : 200px;
+  padding-left               : 40px;
+  transition                 : var(--short);
+  width                      : 100%;
+}
+
+header .menu-bar .search-bar .search-input:focus {
+  background : var(--gray300);
+}
+
+header .menu-bar .search-bar .filter-dropdown {
+  align-items                : flex-end;
+  background                 : var(--gray400);
+  border                     : 0;
+  border-bottom-right-radius : var(--border-lg);
+  border-top-right-radius    : var(--border-lg);
+  color                      : var(--white300);
+  cursor                     : pointer;
+  display                    : flex;
+  margin                     : 0;
+  padding                    : 6px 8px;
+  transform                  : rotate(0deg);
+  transition                 : var(--short);
+}
+
+header .menu-bar .search-bar .filter-dropdown.filter-on {
+  background : var(--primary);
+  color      : #fff;
+}
+
+header .menu-bar .search-bar .filter-dropdown i {
+  margin           : 0 5px;
+  transform        : rotateX(0deg);
+  transform-origin : 0 45%;
+}
+
+header.show .menu-bar .search-bar .filter-dropdown i {
+  transform : rotateX(180deg);
+}
+
+header .menu-bar .menu-open {
+  color     : var(--gray200);
+  cursor    : pointer;
+  font-size : 20px;
+  left      : 0px;
+  padding   : 0 22px;
+  position  : fixed;
+  top       : 30px;
+  z-index   : 300;
+}
+
+header .menu-bar .menu-open i {
+  pointer-events : none;
+}
+
+.filter-options {
+  color           : var(--gray300);
+  display         : flex;
+  font-size       : var(--font-sm);
+  justify-content : center;
+  max-height      : 0px;
+  opacity         : 0;
+  overflow        : hidden;
+  transition      : var(--long) var(--cubic);
+}
+
+.filter-options.show {
+  margin-top : 100px;
+  max-height : 60px;
+  opacity    : 1;
+}
+
+.filter-options input {
+  display : none;
+}
+
+.filter-options button {
+  background    : var(--gray100);
+  border        : none;
+  border-radius : var(--border-lg);
+  color         : var(--gray100);
+  cursor        : pointer;
+  display       : inline-block;
+  font-size     : 12px;
+  margin        : 4px;
+  padding       : 6px 8px;
+  text-align    : center;
+  transition    : var(--short);
+  width         : 76px;
+}
+
+.filter-options button[value='new'] {
+  background : var(--primary);
+  color      : #fff;
+}
+
+.filter-options button[value='resolve'] {
+  background : var(--primary);
+  color      : #fff;
+}
+
+.filter-options button[value='test'] {
+  background : var(--primary);
+  color      : #fff;
+}
+
+.filter-options button[value='done'] {
+  background : var(--primary);
+  color      : #fff;
+}
+
+.filter-options button.active-filter {
+  background : var(--gray400);
+  color      : var(--white200);
+}
+
+/* New task dropdown */
+
+.new-task {
+  border-radius : var(--border-sm);
+  margin        : 0;
+  max-height    : 0;
+  opacity       : 0;
+  overflow      : hidden;
+  padding       : 0;
+  transition    : var(--long) var(--cubic);
+}
+
+.new-task.show {
+  margin-top : 120px;
+  max-height : 300px;
+  opacity    : 1;
+}
+
+.new-task .select-category {
+  display         : flex;
+  justify-content : center;
+  position        : relative;
+}
+
+.new-task .select-category select {
+  -webkit-appearance : none;
+  appearance         : none;
+  background         : none;
+  border             : none;
+  color              : var(--white100);
+  cursor             : pointer;
+  font-family        : 'Inter',
+                       arial;
+  font-size          : var(--font-sm);
+  font-size          : 20px;
+  line-height        : 2;
+  padding            : 0;
+}
+
+.new-task .select-category select:focus {
+  outline : none;
+}
+
+.new-task form {
+  margin    : 0 auto;
+  max-width : 400px;
+}
+
+.new-task form .form-box {
+  align-items   : center;
+  border-radius : var(--border-sm);
+  display       : flex;
+  margin        : 10px 0;
+}
+
+.new-task form .form-box i {
+  color        : var(--white400);
+  font-size    : 16px;
+  margin-right : 10px;
+  position     : relative;
+  right        : -40px;
+}
+
+.new-task form .form-box input {
+  background    : var(--gray400);
+  border        : 0;
+  border-radius : 10px;
+  color         : #fff;
+  font-size     : 20px;
+  font-weight   : 200;
+  padding       : 20px 8px 20px 40px;
+  transition    : var(--short);
+  width         : calc(100% - 18px);
+}
+
+.new-task form .form-box input:focus {
+  background : var(--gray300);
+}
+
+.new-task form .form-box input::placeholder {
+  color : var(--white300);
+}
+
+.new-task .error {
+  align-items     : center;
+  color           : rgb(212, 103, 103);
+  display         : flex;
+  font-size       : var(--font-sm);
+  height          : 40px;
+  justify-content : center;
+  max-height      : 0;
+  opacity         : 0;
+  transition      : var(--short);
+}
+
+.new-task .error.show-error {
+  max-height : 40px;
+  opacity    : 1;
+}
+
+.new-task .error-message {
+  margin : 0 10px;
+}
+
+/* Menu */
+
+.menu {
+  background     : var(--gray500);
+  box-shadow     : var(--box-shadow);
+  display        : flex;
+  flex-direction : column;
+  height         : 100vh;
+  left           : -200px;
+  opacity        : 1;
+  padding-top    : 60px;
+  position       : fixed;
+  top            : 0;
+  transition     : var(--long) var(--cubic);
+  width          : 200px;
+  z-index        : 200;
+  /* align-items: center; */
+}
+
+.menu.show {
+  left    : -10px;
+  opacity : 1;
+}
+
+.menu input {
+  display : none;
+}
+
+.menu button,
+.menu input+label {
+  align-items     : center;
+  background      : transparent;
+  border          : 0;
+  border-radius   : var(--border-sm);
+  color           : var(--white200);
+  cursor          : pointer;
+  display         : flex;
+  font-size       : var(--font-lg);
+  font-weight     : 300;
+  justify-content : flex-start;
+  padding         : 10px;
+  transition      : var(--short);
+  width           : calc(100% - 20px);
+}
+
+.menu button:hover,
+.menu label:hover {
+  color : var(--primary);
+}
+
+.menu p {
+  pointer-events : none;
+}
+
+.menu i {
+  margin         : 0 20px;
+  pointer-events : none;
+}
+
+/* Added task section */
+
+@keyframes slidein {
+  from {
+    opacity   : 1;
+    transform : translate3d(0px, -10px, 0px);
+  }
+
+  to {
+    opacity   : 'inherit';
+    transform : translate3d(0px, 0px, 0px);
+  }
+}
+
+.added-tasks {
+  margin    : 0 auto;
+  max-width : 400px;
+}
+
+.added-tasks .category {
+  animation-duration : var(--long);
+  animation-name     : slidein;
+  padding            : 20px 0;
+  position           : relative;
+  top                : 0;
+  transition         : var(--short);
+}
+
+.added-tasks .category.remove {
+  max-height : 0;
+  opacity    : 0;
+  overflow   : hidden;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-shadow: 0;
+}
+
+.added-tasks .category.hide {
+  display : none;
+}
+
+.added-tasks .category .header .category-title {
+  background  : transparent;
+  border      : none;
+  color       : var(--white100);
+  font-size   : 20px;
+  font-weight : 300;
+  line-height : 1.5;
+  padding     : 0;
+  width       : 100%;
+}
+
+.added-tasks .category .header .category-title::placeholder {
+  color : var(--white400);
+}
+
+.added-tasks .category .header .options {
+  display         : flex;
+  justify-content : flex-end;
+}
+
+.added-tasks .category .header .options button {
+  background : transparent;
+  border     : none;
+  color      : var(--white400);
+  cursor     : pointer;
+  font-size  : 16px;
+  padding    : 4px 8px;
+  transition : var(--short);
+}
+
+.added-tasks .category .header .options button:nth-child(2) {
+  margin : 0 16px;
+}
+
+.added-tasks .category .header .options button:hover {
+  color : var(--primary);
+}
+
+.added-tasks .category .header .options .select-all.selected {
+  color : var(--primary);
+}
+
+.added-tasks .category .progress-bar {
+  display : flex;
+  margin  : 10px 0;
+}
+
+.added-tasks .category .progress-bar>div.selected {
+  background : var(--primary);
+}
+
+.added-tasks .category .progress-bar .new {
+  background : var(--new);
+  height     : 5px;
+  transition : var(--short);
+}
+
+.added-tasks .category .progress-bar .resolve {
+  background : var(--resolve);
+  height     : 5px;
+  transition : var(--short);
+}
+
+.added-tasks .category .progress-bar .test {
+  background : var(--test);
+  height     : 5px;
+  transition : var(--short);
+}
+
+.added-tasks .category .progress-bar .done {
+  background : var(--done);
+  height     : 5px;
+  transition : var(--short);
+}
+
+.added-tasks .category .tasks .task {
+  align-items        : center;
+  animation-duration : var(--long);
+  animation-name     : slidein;
+  background         : var(--gray400);
+  border             : 2px dashed transparent;
+  border             : 1px solid transparent;
+  border-radius      : var(--border-sm);
+  box-shadow         : var(--box-shadow);
+  cursor             : grab;
+  display            : flex;
+  margin-bottom      : var(--margin-sm);
+  max-height         : 200px;
+  opacity            : 1;
+  padding            : var(--padding-sm);
+  position           : relative;
+  transition         : var(--short),
+                       background 2s;
+}
+
+.added-tasks .category .tasks .task.exclude {
+  opacity : 0.2;
+}
+
+.added-tasks .category .tasks .task.hide {
+  display : none;
+}
+
+.added-tasks .category .tasks .task.remove {
+  max-height : 0;
+  opacity    : 0;
+  overflow   : hidden;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-shadow: 0;
+}
+
+.added-tasks .category .tasks .task.over {
+  border    : 2px dashed var(--white400);
+  transform : scale(1.03, 1.03);
+}
+
+.added-tasks .category .task.over>* {
+  pointer-events : none;
+}
+
+.added-tasks .category .tasks .task.moving {
+  transform : scale(0.8);
+}
+
+.added-tasks .category .tasks .task .select-card input {
+  display : none;
+}
+
+.added-tasks .category .tasks .task .select-card .task-number {
+  align-items     : center;
+  background      : var(--gray300);
+  border-radius   : 50%;
+  color           : var(--white200);
+  cursor          : pointer;
+  display         : flex;
+  height          : 34px;
+  justify-content : center;
+  margin          : 10px;
+  transition      : var(--short);
+  width           : 34px;
+}
+
+
+
+.added-tasks .category .tasks .task.selected .select-card .task-number {
+  background : var(--primary);
+  color      : #fff;
+}
+
+.added-tasks .category .tasks .task .card-info input[type='text'] {
+  background : transparent;
+  border     : none;
+  color      : #fff;
+  font-size  : 14px;
+  margin     : 10px 0;
+  width      : calc(100% - 16px);
+}
+
+.added-tasks .category .tasks .task .card-info input.summary {
+  width : calc(100% - 18px);
+}
+
+.added-tasks .category .tasks .task .states {
+  margin : 4px auto;
+  width  : 100%;
+}
+
+.added-tasks .category .tasks .task .states input {
+  display : none;
+}
+
+.added-tasks .category .tasks .task .states label {
+  background    : var(--gray300);
+  border-radius : var(--border-lg);
+  color         : var(--white200);
+  cursor        : pointer;
+  display       : inline-block;
+  font-size     : 11px;
+  margin        : 1px;
+  padding       : 6px 8px;
+  text-align    : center;
+  transition    : var(--short);
+  width         : 50px;
+}
+
+.added-tasks .category .tasks .task .states input[value='new']:checked+label {
+  background : var(--new);
+  color      : #fff;
+}
+
+.added-tasks .category .tasks .task .states input[value='resolve']:checked+label {
+  background : var(--resolve);
+  color      : #fff;
+}
+
+.added-tasks .category .tasks .task .states input[value='test']:checked+label {
+  background : var(--test);
+  color      : #fff;
+}
+
+.added-tasks .category .tasks .task .states input[value='done']:checked+label {
+  background : var(--done);
+  color      : #fff;
+}
+
+.added-tasks .category .tasks .task .card-info .created {
+  color     : var(--white400);
+  cursor    : pointer;
+  font-size : 10px;
+  position  : absolute;
+  right     : 10px;
+  top       : 6px;
+}
+
+.added-tasks .category .tasks .task .card-info .created .time {
+  opacity    : 0;
+  transition : var(--short);
+}
+
+.added-tasks .category .tasks .task .card-info .created .time.show {
+  opacity : 1;
+}
+
+/* Archived */
+
+.added-tasks .archived-tasks {
+  max-height : 0;
+  opacity    : 0;
+  transition : var(--long) var(--cubic);
+  /* transform: scale(0); */
+  visibility : hidden;
+  overflow: hidden;
+}
+
+.added-tasks .archived-tasks .category .tasks .task .select-card .task-number i {
+  pointer-events : none;
+}
+
+.added-tasks .archived-tasks.view {
+  margin-bottom : 60px;
+  max-height    : 100000px;
+  opacity       : 1;
+  overflow      : visible;
+  visibility    : visible;
+}
+
+.added-tasks .archived-tasks .options .archive {
+  display: none;
+}
+
+.added-tasks .archived-tasks .category .category-title {
+  color : var(--white300);
+}
